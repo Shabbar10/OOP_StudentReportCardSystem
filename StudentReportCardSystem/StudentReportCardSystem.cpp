@@ -79,7 +79,7 @@ protected:
                 m_valid = false;
             }
 
-        } while (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20);
+        } while (!m_valid);
 
         m_MT[0] = p;
         m_MT[1] = c;
