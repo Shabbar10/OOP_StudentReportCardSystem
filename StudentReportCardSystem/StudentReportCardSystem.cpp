@@ -18,12 +18,20 @@ protected:
         std::cout << "\nEnter student's LCA Marks in PCBM order:\n";
 
         int p, c, b, m;
-        m_valid = true;
         
         do
         {
+            m_valid = true;
+
+            std::cin.clear();
+            std::cin.ignore();
             std::cin >> p >> c >> b >> m;
-            if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
+            if (!(std::cin))
+            {
+                std::cout << "Invaid input.\n";
+                m_valid = false;
+            }
+            else if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
             {
                 std::cout << "Incorrect range. LCA Marks must be between 0 and 20.\n";
                 m_valid = false;
@@ -42,14 +50,20 @@ protected:
         std::cout << "\nEnter student's Class Test Marks in PCBM order:\n";
 
         int p, c, b, m;
-        m_valid = true;
 
         do
         {
+            m_valid = true;
+
             std::cin.clear();
             std::cin.ignore();
             std::cin >> p >> c >> b >> m;
-            if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
+            if (!(std::cin))
+            {
+                std::cout << "Invaid input.\n";
+                m_valid = false;
+            }
+            else if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
             {
                 std::cout << "Incorrect range. Class Test Marks must be between 0 and 20.\n";
                 m_valid = false;
@@ -68,12 +82,18 @@ protected:
         std::cout << "\nEnter student's Mid-Term Marks in PCBM order:\n";
 
         int p, c, b, m;
-        m_valid = true;
 
         do
         {
+            m_valid = true;
+
             std::cin >> p >> c >> b >> m;
-            if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
+            if (!(std::cin))
+            {
+                std::cout << "Invaid input.\n";
+                m_valid = false;
+            }
+            else if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
             {
                 std::cout << "Incorrect range. Mid-Term Test Marks must be between 0 and 20.\n";
                 m_valid = false;
@@ -92,12 +112,19 @@ protected:
         std::cout << "\nEnter student's End-Term Marks in PCBM order:\n";
 
         int p, c, b, m;
-        m_valid = true;
 
         do
         {
+            m_valid = true;
+
             std::cin >> p >> c >> b >> m;
-            if (p < 0 || p > 40 || c < 0 || c > 40 || b < 0 || b > 40 || m < 0 || m > 40)
+
+            if (!(std::cin))
+            {
+                std::cout << "Invaid input.\n";
+                m_valid = false;
+            }
+            else if (p < 0 || p > 40 || c < 0 || c > 40 || b < 0 || b > 40 || m < 0 || m > 40)
             {
                 std::cout << "Incorrect range. End-Term Test Marks must be between 0 and 40.\n";
                 m_valid = false;
@@ -161,11 +188,37 @@ public:
 
     void SetStudent()
     {
+        bool bvalid{ true };
+
         std::cout << "Student Name: "; std::getline(std::cin, m_name);
         std::cout << "Student Course: "; std::getline(std::cin, m_course);
-        std::cout << "Student PRN: "; std::cin >> m_PRN;
+        do {
+            std::cout << "Student PRN: "; std::cin >> m_PRN;
+            if (!(std::cin))
+            {
+                std::cout << "Invaid input.\n";
+                bvalid = false;
+            }
+        } while (!bvalid);
+
         std::cout << "Student Division: "; std::cin >> m_div;
+        do {
+            if (!(std::cin))
+            {
+                std::cout << "Invaid input.\n";
+                bvalid = false;
+            }
+        } while (!bvalid);
+
         std::cout << "Student Roll No.: "; std::cin >> m_roll;
+        do {
+            if (!(std::cin))
+            {
+                std::cout << "Invaid input.\n";
+                bvalid = false;
+            }
+        } while (!bvalid);
+
         std::cout << std::endl;
 
         LCAMarks();
@@ -195,6 +248,16 @@ int main()
     {
         std::cout << "Do you want to (1) Insert Student Data or (2) View Student Data or (0) Exit?\n";
         std::cin >> choice;
+
+        if (!(std::cin))
+        {
+            std::cout << "Invalid input.\n\n";
+            choice = 1;
+            std::cin.clear();
+            std::cin.ignore();
+            continue;
+        }
+
         std::cin.clear();
         std::cin.ignore();
 
