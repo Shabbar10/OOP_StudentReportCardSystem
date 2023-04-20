@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <vector>
 
 class Report
@@ -13,25 +14,28 @@ protected:
         m_LCA{ 0,0,0,0 }, m_CT{ 0,0,0,0 }, m_MT{ 0,0,0,0 }, m_ET{ 0,0,0,0 }, m_valid{ false }
     { }
 
-    void LCAMarks()
+    void SetMarks()
     {
         std::cout << "\nEnter student's LCA Marks in PCBM order:\n";
 
-        int p, c, b, m;
-        
+        int lp, lc, lb, lm,
+            cp, cc, cb, cm,
+            mp, mc, mb, mm,
+            ep, ec, eb, em;
+
         do
         {
             m_valid = true;
 
             std::cin.clear();
             std::cin.ignore();
-            std::cin >> p >> c >> b >> m;
+            std::cin >> lp >> lc >> lb >> lm;
             if (!(std::cin))
             {
                 std::cout << "Invaid input.\n";
                 m_valid = false;
             }
-            else if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
+            else if (lp < 0 || lp > 20 || lc < 0 || lc > 20 || lb < 0 || lb > 20 || lm < 0 || lm > 20)
             {
                 std::cout << "Incorrect range. LCA Marks must be between 0 and 20.\n";
                 m_valid = false;
@@ -39,17 +43,12 @@ protected:
 
         } while (!m_valid);
 
-        m_LCA[0] = p;
-        m_LCA[1] = c;
-        m_LCA[2] = b;
-        m_LCA[3] = m;
-    }
+        m_LCA[0] = lp;
+        m_LCA[1] = lc;
+        m_LCA[2] = lb;
+        m_LCA[3] = lm;
 
-    void ClassTestMarks()
-    {
         std::cout << "\nEnter student's Class Test Marks in PCBM order:\n";
-
-        int p, c, b, m;
 
         do
         {
@@ -57,13 +56,13 @@ protected:
 
             std::cin.clear();
             std::cin.ignore();
-            std::cin >> p >> c >> b >> m;
+            std::cin >> cp >> cc >> cb >> cm;
             if (!(std::cin))
             {
                 std::cout << "Invaid input.\n";
                 m_valid = false;
             }
-            else if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
+            else if (cp < 0 || cp > 20 || cc < 0 || cc > 20 || cb < 0 || cb > 20 || cm < 0 || cm > 20)
             {
                 std::cout << "Incorrect range. Class Test Marks must be between 0 and 20.\n";
                 m_valid = false;
@@ -71,29 +70,24 @@ protected:
 
         } while (!m_valid);
 
-        m_CT[0] = p;
-        m_CT[1] = c;
-        m_CT[2] = b;
-        m_CT[3] = m;
-    }
+        m_CT[0] = lp;
+        m_CT[1] = lc;
+        m_CT[2] = lb;
+        m_CT[3] = lm;
 
-    void MidTermMarks()
-    {
         std::cout << "\nEnter student's Mid-Term Marks in PCBM order:\n";
-
-        int p, c, b, m;
 
         do
         {
             m_valid = true;
 
-            std::cin >> p >> c >> b >> m;
+            std::cin >> mp >> mc >> mb >> mm;
             if (!(std::cin))
             {
                 std::cout << "Invaid input.\n";
                 m_valid = false;
             }
-            else if (p < 0 || p > 20 || c < 0 || c > 20 || b < 0 || b > 20 || m < 0 || m > 20)
+            else if (mp < 0 || mp > 20 || mc < 0 || mc > 20 || mb < 0 || mb > 20 || mm < 0 || mm > 20)
             {
                 std::cout << "Incorrect range. Mid-Term Test Marks must be between 0 and 20.\n";
                 m_valid = false;
@@ -101,30 +95,25 @@ protected:
 
         } while (!m_valid);
 
-        m_MT[0] = p;
-        m_MT[1] = c;
-        m_MT[2] = b;
-        m_MT[3] = m;
-    }
+        m_MT[0] = mp;
+        m_MT[1] = mc;
+        m_MT[2] = mb;
+        m_MT[3] = mm;
 
-    void EndTermMarks()
-    {
         std::cout << "\nEnter student's End-Term Marks in PCBM order:\n";
-
-        int p, c, b, m;
 
         do
         {
             m_valid = true;
 
-            std::cin >> p >> c >> b >> m;
+            std::cin >> ep >> ec >> eb >> em;
 
             if (!(std::cin))
             {
                 std::cout << "Invaid input.\n";
                 m_valid = false;
             }
-            else if (p < 0 || p > 40 || c < 0 || c > 40 || b < 0 || b > 40 || m < 0 || m > 40)
+            else if (ep < 0 || ep > 40 || ec < 0 || ec > 40 || eb < 0 || eb > 40 || em < 0 || em > 40)
             {
                 std::cout << "Incorrect range. End-Term Test Marks must be between 0 and 40.\n";
                 m_valid = false;
@@ -132,43 +121,43 @@ protected:
 
         } while (!m_valid);
 
-        m_ET[0] = p;
-        m_ET[1] = c;
-        m_ET[2] = b;
-        m_ET[3] = m;
+        m_ET[0] = ep;
+        m_ET[1] = ec;
+        m_ET[2] = eb;
+        m_ET[3] = em;
 
         std::cout << std::endl;
     }
 
     void GetReport()
     {
-        std::cout << "\t\tP C B M\n";
+        std::cout << "\t\tP\tC\tB\tM\n";
 
         std::cout << "LCA:\t\t";
         for (int i = 0; i < 4; i++)
         {
-            std::cout << m_LCA[i] << " ";
+            printf("%02d\t", m_LCA[i]);
         }
         std::cout << std::endl;
 
         std::cout << "Class Test:\t";
         for (int i = 0; i < 4; i++)
         {
-            std::cout << m_CT[i] << " ";
+            printf("%02d\t", m_CT[i]);
         }
         std::cout << std::endl;
 
         std::cout << "Mid-Term:\t";
         for (int i = 0; i < 4; i++)
         {
-            std::cout << m_MT[i] << " ";
+            printf("%02d\t", m_MT[i]);
         }
         std::cout << std::endl;
 
         std::cout << "End-Term:\t";
         for (int i = 0; i < 4; i++)
         {
-            std::cout << m_ET[i] << " ";
+            printf("%02d\t", m_ET[i]);
         }
         std::cout << std::endl << "---------------------------------------------------------------------";
         std::cout << std::endl << std::endl;
